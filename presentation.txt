@@ -1,0 +1,63 @@
+- disclaimer:
+    - not covering all of cmake
+    - examples may contain non best practices
+
+- cmake introduction
+    - meta build system
+    - build system (ninja, make)
+    - appendix:
+        - compiler vs linker
+        - pipeline: preprocessor, compiler, assembler, linker
+
+- cmake language
+    - demo
+
+- calculator:
+    - calculator executable
+    - demonstrate the following:
+        - cmake .. -G "Ninja"           --> ninja
+        - cmake .. -G "Unix Makefiles"  --> make
+        - cmake ..                      --> cmake --build .
+
+- calculator with math lib:
+    - break down the calculator into executable and math library
+
+- calculator with math lib using interface:
+    - use add_subdirectory and a new cmake file
+    - expose math library header via interface
+
+- calculator configure_file for version:
+    - add calculator version info using configure_file
+
+- calculator int and float:
+    - break down the math library into int and float libraries
+    - create a math wrapper for the calculator
+    - choose the math library via cmake or command-line
+
+- calculator tester:
+    - introduce a tester executable to test the math libraries
+
+- calculator tester lib per test:
+    - split the tests into smaller pieces (lib per test)
+    - introduce tester.cmake infrastructure (using include command)
+    - link tests to tester
+
+- calculator tester test list property:
+    - link tests to the tester using a dedicated test-list property, to reduce
+      manual steps on new tests
+
+- calculator tester test list autogen:
+    - link tests to the tester via the infrastructure function - even cleaner
+    - auto generate an array of tests from the dedicated test-list property
+    - change the tester to consume the auto-generated file
+    - demo adding a new test 'test_mix'
+
+- calculator tester test list autogen with custom targets:
+    - main change: multiple autogen files including headers!
+    - mark autogen c file as generated
+    - create custom autogen target
+    - explicitly depend tester on autogen target
+    - tester code changes
+    - show the dependency graph:
+        - cmake .. --graphviz=graph.dot
+        - dot -Tpng graph.dot -o graph.png
