@@ -1,3 +1,5 @@
+#!/bin/bash
+
 for d in [0-9]*/; do
     cd $d
     mkdir -p build
